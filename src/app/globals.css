@@ -3,21 +3,24 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --primary: #18191A;
+  --secondary: #242526;
+  --tertiary: #3A3B3C;
+  --accent: #194759;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background-color: var(--secondary);
+  color: white;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+h1 {
+  @apply text-3xl
+}
+
+p {
+  @apply text-base
 }
 
 @layer utilities {
