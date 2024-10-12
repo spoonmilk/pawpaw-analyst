@@ -4,6 +4,9 @@ import { DisplayText, Input, LoadingIcon } from "@/app/components";
 import Image from "next/image";
 import { useState } from "react";
 import { Data } from "@/app/lib/types";
+import { ScrollProgress } from "./components/ScrollProgress";
+import { motion } from "framer-motion";
+import JumpButtons from "./components/JumpButtons";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -36,28 +39,24 @@ export default function Home() {
     } 
   }
   return (
-    <main className="flex flex-col justify-start items-center w-full px-8">
+    <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
       
       <div className="flex items-center justify-center py-4">
         <p>Pawpaw is the most best and awesome way of protecting your rights!</p>
       </div>
 
-      <form className="w-[300px] lg:w-[500px] xl:w-[700px]" onSubmit={(e) => onSubmit(e)}>
+      <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
         <Input value={value} setValue={setValue} />
       </form>
 
       <LoadingIcon isLoading={loading} />
 
+      {data?.key_points ? 
+        <div className="absolute top-0 right-0">
+          <JumpButtons key_points={data?.key_points} />
+        </div> 
+        : <></>}
       <DisplayText data={data} />
-
-      <div className="flex flex-col justify-start items-start gap-4">
-        <p className="font-black">THESE ARE THE KEY POINTS</p>
-        {data?.key_points && data.key_points.map((item: string, index: number) => (
-            <div key={index} className="flex items-center justify-center">
-              <p>{item}</p>
-            </div>
-        ))}
-      </div>
 
     </main>
   )

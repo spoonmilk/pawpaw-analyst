@@ -5,7 +5,7 @@ type Data = {
         user_rights_summary: string,
         fees_summary: string,
     };
-    orginal_text: string;
+    original_text: string;
 }
 
 export default Data;
