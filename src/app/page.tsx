@@ -17,7 +17,8 @@ export default function Home() {
         "url": value
       }),
     })
-    const data = await r
+    const data = await response.json();
+    console.log(data);
   }
 
   return (
