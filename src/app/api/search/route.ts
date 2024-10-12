@@ -5,7 +5,7 @@ const jsdom = require("jsdom");
 const { JSDOM } = jsdom;
 
 const openai = new OpenAI({
-    apiKey: "-",
+    apiKey: process.env.OPENAI_API_KEY,
 });
 
 // Define a Zod schema for the expected response: an array of strings

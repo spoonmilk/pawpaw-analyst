@@ -1,14 +1,14 @@
 'use client';
 
-import { Input } from "@/app/components"
-import { useState } from "react"
+import { Input } from "@/app/components";
+import { useState } from "react";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await fetch("https://localhost:3000/api/NACHOSAPI", {
+    const response = await fetch("https://localhost:3000/api/search", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +17,8 @@ export default function Home() {
         "url": value
       }),
     })
-    const data = await r
+    const data = await response.json();
+    console.log(data);
   }
 
   return (

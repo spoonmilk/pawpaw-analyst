@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function Input({ value, setValue }: { value: string, setValue: (value: string) => void }) {
     return (
         <div className="flex flex-col w-full">
-            <label htmlFor="url" className="text-sm font-medium text-gray-900">Enter a URL</label>
+            <label htmlFor="url" className="text-sm font-medium text-white">Enter a URL</label>
             <input 
                 type="url" 
                 value={value} 
