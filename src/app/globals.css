@@ -116,3 +116,13 @@ button:hover {
     color: var(--accent);
   }
 }
+
+progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-color: var(--accent);
+  transform-origin: 0%;
+}

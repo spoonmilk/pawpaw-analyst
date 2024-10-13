@@ -25,7 +25,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
                     <span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span>
                 </HoverPopup>
             );
-            <span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span> 
+            <span id={`jump${num_quote}`} className="font-large bg-yellow-200">{quote}</span> 
 
         });
         let lastIndex = text.indexOf(quotes[quotes.length - 1]);
@@ -42,7 +42,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             transition={{ duration: 1 }}
-            className="mx-16 p-8 shadow-md bg-white rounded-lg text-black text-pretty w-[90%] mb-16">
+            className="mx-16 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-16 mt-3">
                 {highlightWords(data.original_text, data.key_points.points.negative_key_points.map(point => point.quotation))}
             </motion.div>
         )}

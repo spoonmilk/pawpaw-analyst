@@ -47,7 +47,7 @@ export async function POST(req: Request) {
       model: "gpt-4o-mini",
       messages: [
         { role: "system", content: "You are a legal assistant specialized in extrating key points from terms of service documents." },
-        { role: "user", content: `Extract positive key point quotations & explanations, negative key point quotations & explanations and suspicious point quotations & explanations from this text: \n\nTerms of Service: ${textContent}` }
+        { role: "user", content: `Extract positive key point quotations & explanations, negative key point quotations & explanations and suspicious point quotations & explanations${sarcasm ? ", (add sarcasm to the explanation)," : ""} from this text: \n\nTerms of Service: ${textContent}` }
       ],
       response_format: zodResponseFormat(PointsSchema, "key_points"),
     });
