@@ -17,6 +17,14 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
         }
     };
 
+    const scrollToTop = () => {
+        setCurrent(-1); // Set the current state to -1 when scrolling to the top
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    };
+
     useEffect(() => {
         const handleScroll = () => {
             const totalHeight = document.body.scrollHeight - window.innerHeight;
@@ -41,6 +49,13 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
             <div className="p-4">
                 {/* Circular Navigation Buttons */}
                 <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-3">
+                    {/* Button to Scroll to Top */}
+                    <button
+                        className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${
+                            current === -1 ? 'bg-blue-500 shadow-md scale-105' : 'bg-gray-300 hover:bg-gray-400'
+                        }`}
+                        onClick={scrollToTop}
+                    />
                     {key_points.map((_, index) => (
                         <button
                             key={index}
