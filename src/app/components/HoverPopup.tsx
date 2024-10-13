@@ -42,7 +42,7 @@ export default function HoverPopup({
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.5 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
-            className={`hover-card absolute bg-white border-gray-600 rounded p-4 shadow-[] ${classNames.hover}`}
+            className={`hover-card absolute bg-white border-gray-600 rounded p-4 shadow-supalarge ${classNames.hover}`}
           >
             {hoverElement}
           </motion.div>
