@@ -3,11 +3,6 @@ import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import get_text_from_url from "../helpers";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-
 // Define a Zod schema for the expected response: an array of strings
 const PointsSchema = z.object({
   positive_key_points: z.array(
@@ -39,6 +34,10 @@ const SummarySchema = z.object({
 
 export async function POST(req: Request) {
   try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const { url, sarcasm, ...rest } = await req.json();
 
     const textContent = await get_text_from_url(url);

@@ -1,5 +1,6 @@
 import { Data } from "@/app/lib/types/Types";
 import { motion } from "framer-motion";
+import HoverPopup from "./HoverPopup";
 
 export default function DisplayText({ data }: { data: Data | null }) {    
     const highlightWords = (text: string, quotes: string[]) => {
@@ -16,7 +17,16 @@ export default function DisplayText({ data }: { data: Data | null }) {
 
             let before = text.slice(0, index);
             parts.push(<span>{before}</span>);
-            parts.push(<span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span>);
+            parts.push(
+                <HoverPopup 
+                    classNames={{ wrapper: "", hover: "", parent: "" }}
+                    hoverElement={<span>Hello there</span>}
+                >
+                    <span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span>
+                </HoverPopup>
+            );
+            <span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span> 
+
         });
         let lastIndex = text.indexOf(quotes[quotes.length - 1]);
         let last = text.slice(lastIndex + quotes[quotes.length - 1].length);
