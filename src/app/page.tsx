@@ -6,6 +6,9 @@ import { useState, useEffect } from "react";
 import { Data, KeyPoints, PointPair, Score } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 import { motion, useScroll, useSpring } from "framer-motion";
+import getMatchingPoints from "./utils/getMatchingPoints";
+import TitleHead from "./components/TitleHead";
+import ScoreTOS from "./components/ScoreTOS";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -84,6 +87,9 @@ export default function Home() {
         return
       }
 
+      const keyPointsData: KeyPoints = await keyPointsResponse.json() as KeyPoints;
+      const originalTextData = await originalTextResponse.json();
+
       const data: Data = {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
@@ -139,7 +145,7 @@ export default function Home() {
         </div> 
         : <></>}
       <DisplayText data={data} />
-      <ScoreTOE score={score?.score} />
+      <ScoreTOS score={score?.score} />
     </main>
     </>
   )
