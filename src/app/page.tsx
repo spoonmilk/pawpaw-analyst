@@ -43,6 +43,7 @@ export default function Home() {
     }
 
     try {
+      setData(null);
       setLoading(true);
   
       const keyPointsPromise = fetch(`http://localhost:3000/api/search/key_points`, {
@@ -88,7 +89,7 @@ export default function Home() {
         return
       }
 
-      const keyPointsData: KeyPoints = await keyPointsResponse.json() as KeyPoints;
+      const keyPointsData = await keyPointsResponse.json() as KeyPoints;
       const originalTextData = await originalTextResponse.json();
 
       const data: Data = {
@@ -97,6 +98,8 @@ export default function Home() {
       };
 
       const score_data: Score = await scoreTOSResponse.json() as Score;
+      console.log("scord_data:", score_data);
+
   
       setData(data);
       setScore(score_data);
@@ -113,6 +116,10 @@ export default function Home() {
 
   const MatchingJumpButtons = ({ data }: { data: Data }) => {
     const points_matched = getMatchingPoints(data);
+    if (points_matched.length === 0) {
+      setError("Error processing key points. Please try again later.");
+      return <></>;
+    }
     return <JumpButtons matching_points={points_matched} />;
   }
 
@@ -121,25 +128,30 @@ export default function Home() {
     <motion.div className="progress-bar" style={{ scaleX }}/>
       <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden"> 
       <TitleHead />
-      <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
-        <Input value={value} setValue={setValue} />
-        {error ? 
-          <motion.p 
-            className="text-red-500 font-bold text-center"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            {error}
-          </motion.p>
-          : <></>
-        }
-      </form>
+        <div className="flex w-full flex-row justify-center items-center">
+          <form className="w-[80%] py-8" onSubmit={(e) => onSubmit(e)}>
+            <Input value={value} setValue={setValue} />
+            {error ?
+              <motion.p
+                className="text-red-500 font-bold text-center"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                {error}
+              </motion.p>
+              : <></>
+            }
+          </form>
+          <SarcasmToggle toggle={sarcasm} setToggle={setSarcasm} />
+        </div>
 
       <LoadingIcon isLoading={loading} />
 
-      {data && <div id="summaryBox"><DisplaySummary key_points={data.key_points} /></div>}
+        {data && <div id="summaryBox">
+          <DisplaySummary key_points={data.key_points} score={score?.score} />
+        </div>}
 
       {data?.key_points ? 
         <div className="absolute top-0 right-0">
@@ -147,7 +159,6 @@ export default function Home() {
         </div> 
         : <></>}
         <DisplayText data={data} />
-        <ScoreTOS score={score?.score} />
     </main>
     </>
   )
