@@ -3,9 +3,10 @@
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
 import { DisplaySummary } from "@/app/components";
 import { useState, useEffect } from "react";
-import { Data, KeyPoints, Score } from "@/app/lib/types/Types";
+import { Data, KeyPoints, PointPair, Score } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 import { motion, useScroll, useSpring } from "framer-motion";
+import getMatchingPoints from "./utils/getMatchingPoints";
 import TitleHead from "./components/TitleHead";
 import SarcasmToggle from "./components/SarcasmToggle";
 import ScoreTOS from "./components/ScoreTOS";
@@ -84,12 +85,12 @@ export default function Home() {
         setValue("");
         setError("An error occurred. Please try again later.");
         setLoading(false);
-        return;
+        return
       }
-      
-      const keyPointsData = await keyPointsResponse.json() as KeyPoints;
-      const originalTextData = await originalTextResponse.json() as { original_text: string };
-  
+
+      const keyPointsData: KeyPoints = await keyPointsResponse.json() as KeyPoints;
+      const originalTextData = await originalTextResponse.json();
+
       const data: Data = {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
@@ -101,12 +102,18 @@ export default function Home() {
       setScore(score_data);
       setValue("");
       setLoading(false);
+      // console.log("data", data);
     } catch (error) {
       setValue("")
       setError("An error occurred. Please try again later.");
       setLoading(false);
       console.error(error);
     }     
+  }
+
+  const MatchingJumpButtons = ({ data }: { data: Data }) => {
+    const points_matched = getMatchingPoints(data);
+    return <JumpButtons matching_points={points_matched} />;
   }
 
   return (
@@ -136,7 +143,7 @@ export default function Home() {
 
       {data?.key_points ? 
         <div className="absolute top-0 right-0">
-          <JumpButtons key_points={data.key_points.points.positive_key_points} />
+          <MatchingJumpButtons data={data} />
         </div> 
         : <></>}
         <DisplayText data={data} />

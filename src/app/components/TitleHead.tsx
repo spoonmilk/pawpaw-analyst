@@ -19,7 +19,8 @@ export default function TitleHead() {
           <p className="my-0.5 text-gray-700 text-md" >
             Privacy Analysis With Personality And Whimsy (PAWPAW) is a tool that
             allows users to analyze EULAs, SLAs, TOSs, and other legal documents
-            to pinpoint how companies may be misusing your data.
+            to pinpoint how companies may be misusing your data or pulling shady tactics 
+            with your unknowing consent.
           </p>
         </motion.div>
       </div>
