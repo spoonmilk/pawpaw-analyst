@@ -1,12 +1,13 @@
 'use client';
 
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
+import { DisplaySummary } from "@/app/components";
 import { useState, useEffect } from "react";
 import { Data, KeyPoints } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 import Image from "next/image";
 import harold from "./public/haroldface.svg";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion } from "framer-motion";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -21,13 +22,6 @@ export default function Home() {
       }, 5000);
     }
   }, [error]);
-
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  }); 
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -91,48 +85,47 @@ export default function Home() {
   }
 
   return (
-    <>
-      <motion.div className="progress-bar" style={{ scaleX }}/>
-      <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
-        <div className="flex items-center justify-center py-4">
-          <motion.div>
-            <Image src={harold} alt="harold" className="h-60 w-auto"/>
-          </motion.div>
-          <div className="flex flex-col items-center justify-center">
-          <h1>Welcome to PAWPAW!</h1>
-            <p>
-              <span className="block">Privacy Analyis With Personality And Whimsy (PAWPAW) is a tool that allows users</span>
-              <span className="block">to analyze EULAs, SLAs, TOSs, and other legal documents to pinpoint</span>
-              <span className="block"> how companies may be misusing your data. </span> 
-            </p>
-          </div>
+    <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
+      
+      <div className="flex items-center justify-center py-4">
+        <Image src={harold} alt="harold" className="h-80 w-auto"/>
+        <div className="flex flex-col items-center justify-center">
+        <h1>Welcome to PAWPAW!</h1>
+          <p>
+            <span className="block">Privacy Analyis With Personality And Whimsy (PAWPAW) is a tool that allows users</span>
+            <span className="block">to analyze EULAs, SLAs, TOSs, and other legal documents to pinpoint</span>
+            <span className="block"> how companies may be misusing your data. </span> 
+          </p>
         </div>
+      </div>
 
-        <form className="w-[80%] max-w-[700px]" onSubmit={(e) => onSubmit(e)}>
-          <Input value={value} setValue={setValue} />
-          {error ? 
-            <motion.p 
-              className="text-red-500 font-bold text-center"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-            >
-              {error}
-            </motion.p>
-            : <></>
-          }
-        </form>
-        <LoadingIcon isLoading={loading} />
+      <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
+        <Input value={value} setValue={setValue} />
+        {error ? 
+          <motion.p 
+            className="text-red-500 font-bold text-center"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            {error}
+          </motion.p>
+          : <></>
+        }
+      </form>
 
-        {data?.key_points ? 
-          <div className="absolute top-0 right-0">
-            <JumpButtons key_points={data.key_points.points.positive_key_points} />
-          </div> 
-          : <></>}
-        <DisplayText data={data} />
+      <LoadingIcon isLoading={loading} />
 
-      </main>
-    </>
+      {data && <DisplaySummary key_points={data.key_points} />}
+
+      {data?.key_points ? 
+        <div className="absolute top-0 right-0">
+          <JumpButtons key_points={data.key_points.points.positive_key_points} />
+        </div> 
+        : <></>}
+      <DisplayText data={data} />
+
+    </main>
   )
 }
