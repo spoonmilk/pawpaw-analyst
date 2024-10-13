@@ -27,11 +27,12 @@ export default function HoverPopup({
   };
 
   return (
-    <div className={`relative ${classNames.wrapper}`}>
+    <div className={`relative ${classNames.wrapper}`}
+      onMouseOver={handleMouseOver}
+      onMouseOut={handleMouseOut}
+    >
       <div
         className={`hover-card-trigger ${classNames.parent}`}
-        onMouseOver={handleMouseOver}
-        onMouseOut={handleMouseOut}
       >
         {children}
       </div>
