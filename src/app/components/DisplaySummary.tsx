@@ -13,7 +13,7 @@ export default function DisplaySummary({ key_points }: { key_points: KeyPoints |
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           transition={{ duration: 1 }}
-          className="mx-16 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-1 mt-1"
+          className="mx-10 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-1"
         >
           <div className="space-y-4">
             <SummarySection title="Data Privacy" content={summary.data_privacy_summary} />
