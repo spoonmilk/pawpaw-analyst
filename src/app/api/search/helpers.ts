@@ -12,7 +12,7 @@ const get_text_from_url = async (url : string) => {
     const dom = new JSDOM(html);
 
     // Extract all the text from the parsed document
-    const html_body = dom.window.document.body || "";
+    const html_body = dom.window.document.body.innerHTML || "";
     return convert(html_body);
 };
 

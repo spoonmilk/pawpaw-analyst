@@ -3,7 +3,7 @@
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
 import Image from "next/image";
 import { useState } from "react";
-import { Data } from "@/app/lib/types";
+import { Data, KeyPoints, OriginalText } from "@/app/lib/types/Types";
 import { ScrollProgress } from "./components/ScrollProgress";
 import { motion } from "framer-motion";
 import JumpButtons from "./components/JumpButtons";
@@ -17,7 +17,8 @@ export default function Home() {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await fetch(`http://localhost:3000/api/search`, {
+  
+      const keyPointsPromise = fetch(`http://localhost:3000/api/search/key_points`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -27,8 +28,27 @@ export default function Home() {
         }),
         cache: "no-cache",
       });
-
-      const data = await response.json();
+      const originalTextPromise = fetch(`http://localhost:3000/api/search/original_text`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "url": value
+        }),
+        cache: "no-cache",
+      });
+      
+      const [keyPointsResponse, originalTextResponse] = await Promise.all([keyPointsPromise, originalTextPromise]);
+  
+      const keyPointsData: KeyPoints = await keyPointsResponse.json();
+      const originalTextData: OriginalText = await originalTextResponse.json();
+  
+      const data: Data = {
+        key_points: keyPointsData,
+        original_text: originalTextData
+      };
+  
       setData(data);
       setValue("");
       setLoading(false);
@@ -36,8 +56,9 @@ export default function Home() {
     } catch (error) {
       setValue("");
       console.error(error);
-    } 
+    }     
   }
+
   return (
     <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
       
@@ -53,10 +74,10 @@ export default function Home() {
 
       {data?.key_points ? 
         <div className="absolute top-0 right-0">
-          <JumpButtons key_points={data?.key_points} />
+          <JumpButtons key_points={data?.key_points.key_points} />
         </div> 
         : <></>}
-      <DisplayText data={data} />
+      <DisplayText data={data?.original_text} />
 
     </main>
   )
