@@ -45,7 +45,7 @@ export default function Home() {
     try {
       setLoading(true);
   
-      const keyPointsPromise = fetch(`http://localhost:3000/api/search/key_points`, {
+      const keyPointsPromise = fetch(`${process.env.API_URL}/search/key_points`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -57,7 +57,7 @@ export default function Home() {
         cache: "no-cache",
       });
 
-      const originalTextPromise = fetch(`http://localhost:3000/api/search/original_text`, {
+      const originalTextPromise = fetch(`${process.env.API_URL}/search/original_text`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
