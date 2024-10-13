@@ -2,10 +2,6 @@ import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
 const ScoreSchema = z.object({
     score: z.number(),
     explanation: z.string()
@@ -13,6 +9,10 @@ const ScoreSchema = z.object({
 
 export async function POST(req: Request) {
     try {
+        const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY,
+        });
+        
         const { news, ...res } = await req.json();
         
         const score = await openai.beta.chat.completions.parse({

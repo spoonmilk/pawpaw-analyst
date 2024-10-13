@@ -2,16 +2,16 @@ import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-const SummarySchema = z.object({
-    summary: z.string(),
-  });
-
 export async function POST(req: Request) {
     try {
+        const openai = new OpenAI({
+            apiKey: process.env.OPENAI_API_KEY,
+        });
+        
+        const SummarySchema = z.object({
+            summary: z.string(),
+        });
+
         const { news, ...res } = await req.json();
         
         const summary = await openai.beta.chat.completions.parse({
