@@ -23,7 +23,7 @@ export async function POST(req: Request) {
             model: "gpt-4o",
             messages: [
               { role: "system", content: "Without modifying the text." },
-              { role: "user", content: `Parse the following text such that only the terms are extracted\n\n Text: ${text}` }
+              { role: "user", content: `Parse the following text such that only the terms are extracted, remove any meaningless html code\n\n Text: ${text}` }
             ],
             response_format: zodResponseFormat(ParsedTextSchema, "text"),
           });

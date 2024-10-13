@@ -3,16 +3,20 @@
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
 import { DisplaySummary } from "@/app/components";
 import { useState, useEffect } from "react";
-import { Data, KeyPoints } from "@/app/lib/types/Types";
+import { Data, KeyPoints, Score } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 import { motion, useScroll, useSpring } from "framer-motion";
 import TitleHead from "./components/TitleHead";
+import SarcasmToggle from "./components/SarcasmToggle";
+import ScoreTOE from "./components/ScoreTOS";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const [sarcasm, setSarcasm] = useState<boolean>(false);
+  const [score, setScore] = useState<Score | null>(null);
   const scaleX = useSpring(0);
   const { scrollYProgress } = useScroll();
   const scale = useSpring(scrollYProgress, {
@@ -46,7 +50,8 @@ export default function Home() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          "url": value
+          "url": value,
+          "sarcasm": sarcasm
         }),
         cache: "no-cache",
       });
@@ -61,10 +66,21 @@ export default function Home() {
         }),
         cache: "no-cache",
       });
+
+      const scoreTOSPromise = fetch(`http://localhost:3000/api/search/score`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          "url": value
+        }),
+        cache: "no-cache",
+      });
       
-      const [keyPointsResponse, originalTextResponse] = await Promise.all([keyPointsPromise, originalTextPromise]);
+      const [keyPointsResponse, originalTextResponse, scoreTOSResponse] = await Promise.all([keyPointsPromise, originalTextPromise, scoreTOSPromise]);
   
-      if (!keyPointsResponse.ok || !originalTextResponse.ok) {
+      if (!keyPointsResponse.ok || !originalTextResponse.ok || !scoreTOSResponse.ok) {
         setValue("");
         setError("An error occurred. Please try again later.");
         setLoading(false);
@@ -78,8 +94,10 @@ export default function Home() {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
       };
+      const score: Score = await scoreTOSResponse.json() as Score;
   
       setData(data);
+      setScore(score);
       setValue("");
       setLoading(false);
     } catch (error) {
@@ -121,6 +139,7 @@ export default function Home() {
         </div> 
         : <></>}
       <DisplayText data={data} />
+        <ScoreTOE score={score?.score} />
     </main>
     </>
   )

@@ -21,4 +21,9 @@ type Data = {
     original_text: string
 }
 
-export type { KeyPoints, PointPair, Data }; 
+type Score = {
+    score : number | null,
+    explanation : string | null
+}
+
+export type { KeyPoints, PointPair, Score, Data }; 
