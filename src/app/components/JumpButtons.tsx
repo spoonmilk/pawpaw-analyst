@@ -39,39 +39,17 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
             />
 
             <div className="p-4">
-                <h1 className="text-lg font-medium text-gray-700 mb-4">Current: {current}</h1>
-                
                 {/* Circular Navigation Buttons */}
                 <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-3">
                     {key_points.map((_, index) => (
                         <button
                             key={index}
-                            className={`w-4 h-4 rounded-full transition-all duration-300 focus:outline-none ${
-                                current === index ? 'bg-blue-500 shadow-md scale-110' : 'bg-gray-300 hover:bg-gray-400'
+                            className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${
+                                current === index ? 'bg-blue-500 shadow-md scale-105' : 'bg-gray-300 hover:bg-gray-400'
                             }`}
                             onClick={() => handleScroll(index)}
                         />
                     ))}
-                </div>
-
-                {/* Previous and Next Links */}
-                <div className="fixed left-4 bottom-4 flex flex-col space-y-2">
-                    {current > 0 && (
-                        <button 
-                            onClick={() => handleScroll(current - 1)} 
-                            className="text-blue-500 border border-blue-500 rounded-full px-3 py-1 transition-all duration-300 hover:bg-blue-500 hover:text-white focus:outline-none"
-                        >
-                            Previous
-                        </button>
-                    )}
-                    {current < key_points.length - 1 && (
-                        <button 
-                            onClick={() => handleScroll(current + 1)} 
-                            className="text-blue-500 border border-blue-500 rounded-full px-3 py-1 transition-all duration-300 hover:bg-blue-500 hover:text-white focus:outline-none"
-                        >
-                            Next
-                        </button>
-                    )}
                 </div>
             </div>
         </div>

@@ -32,7 +32,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             transition={{ duration: 1 }}
-            className="mx-16 p-8 shadow-md bg-white rounded-lg text-black text-pretty w-[90%]">
+            className="mx-16 p-8 shadow-md bg-white rounded-lg text-black text-pretty w-[90%] mb-16">
                 {highlightWords(data.original_text, data.key_points.points.negative_key_points.map(point => point.quotation))}
             </motion.div>
         )}
