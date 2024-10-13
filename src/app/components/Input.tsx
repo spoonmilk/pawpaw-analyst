@@ -17,7 +17,7 @@ export default function Input({ value, setValue }: { value: string, setValue: (v
        
             <motion.button
                 type="submit"
-                className="py-1 bg-white text-accent border-2 border-accent rounded-lg hover:bg-accent hover:text-white transition-all mb-2"
+                className="py-1 bg-white text-accent border-2 border-accent rounded-lg hover:bg-accent hover:text-white transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.85 }}
             >

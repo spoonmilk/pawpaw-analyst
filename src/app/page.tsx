@@ -5,8 +5,6 @@ import { DisplaySummary } from "@/app/components";
 import { useState, useEffect } from "react";
 import { Data, KeyPoints } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
-import Image from "next/image";
-import harold from "./public/haroldface.svg";
 import { motion, useScroll, useSpring } from "framer-motion";
 import TitleHead from "./components/TitleHead";
 
@@ -95,22 +93,8 @@ export default function Home() {
   return (
     <>
     <motion.div className="progress-bar" style={{ scaleX }}/>
-      <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
-        {/*<div className="flex items-center justify-center py-4">
-          <motion.div>
-            <Image src={harold} alt="harold" className="h-60 w-auto"/>
-          </motion.div>
-          <div className="flex flex-col items-center justify-center">
-          <h1>Welcome to PAWPAW!</h1>
-            <p>
-              <span className="block">Privacy Analyis With Personality And Whimsy (PAWPAW) is a tool that allows users</span>
-              <span className="block">to analyze EULAs, SLAs, TOSs, and other legal documents to pinpoint</span>
-              <span className="block"> how companies may be misusing your data. </span> 
-            </p>
-          </div>
-        </div> */}
+      <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden"> 
       <TitleHead />
-
       <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
         <Input value={value} setValue={setValue} />
         {error ? 

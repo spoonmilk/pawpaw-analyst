@@ -9,7 +9,7 @@ export default function TitleHead() {
       <Image src={harold} alt="harold" className="h-60 w-auto" />
       <div>
         <motion.div
-          className="rounded-lg px-4 py-4"
+          className="rounded-lg px-4 py-2 shadow-md"
           transition={{ ease: easeInOut, duration: 0.5 }}
           whileHover={{
             scale: 1.02
