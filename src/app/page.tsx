@@ -2,11 +2,12 @@
 
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
 import { useState, useEffect } from "react";
-import { Data, KeyPoints } from "@/app/lib/types/Types";
+import { Data, KeyPoints, PointPair } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 import Image from "next/image";
 import harold from "./public/haroldface.svg";
 import { motion, useScroll, useSpring } from "framer-motion";
+import getMatchingPoints from "./utils/getMatchingPoints";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -63,17 +64,16 @@ export default function Home() {
       });
       
       const [keyPointsResponse, originalTextResponse] = await Promise.all([keyPointsPromise, originalTextPromise]);
-  
-      if (!keyPointsResponse.ok || !originalTextResponse.ok) {
-        setValue("");
-        setError("An error occurred. Please try again later.");
-        setLoading(false);
-        return;
-      }
       
       const keyPointsData = await keyPointsResponse.json() as KeyPoints;
       const originalTextData = await originalTextResponse.json() as { original_text: string };
-  
+      
+      if (!keyPointsData?.points) {
+        setError("An error occurred. Please try again later.");
+        setLoading(false);
+        return
+      }
+
       const data: Data = {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
@@ -82,12 +82,18 @@ export default function Home() {
       setData(data);
       setValue("");
       setLoading(false);
+      // console.log("data", data);
     } catch (error) {
       setValue("")
       setError("An error occurred. Please try again later.");
       setLoading(false);
       console.error(error);
     }     
+  }
+
+  const MatchingJumpButtons = ({ data }: { data: Data }) => {
+    const points_matched = getMatchingPoints(data);
+    return <JumpButtons matching_points={points_matched} />;
   }
 
   return (
@@ -127,7 +133,7 @@ export default function Home() {
 
         {data?.key_points ? 
           <div className="absolute top-0 right-0">
-            <JumpButtons key_points={data.key_points.points.positive_key_points} />
+            <MatchingJumpButtons data={data} />
           </div> 
           : <></>}
         <DisplayText data={data} />

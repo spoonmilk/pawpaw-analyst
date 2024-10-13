@@ -21,4 +21,9 @@ type Data = {
     original_text: string
 }
 
-export type { KeyPoints, PointPair, Data }; 
+type MatchingPoints = {
+    point: PointPair,
+    index: number
+  }
+
+export type { MatchingPoints, KeyPoints, PointPair, Data }; 

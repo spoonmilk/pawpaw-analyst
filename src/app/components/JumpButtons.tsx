@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { PointPair } from "@/app/lib/types/Types";
+import { MatchingPoints, PointPair } from "@/app/lib/types/Types";
 
-export default function JumpButtons({ key_points }: { key_points: PointPair[] }) {
+export default function JumpButtons({ matching_points }: { matching_points: MatchingPoints[] }) {
     const [current, setCurrent] = useState<number>(-1); // Set initial state to -1 for the top button
     const [scrollProgress, setScrollProgress] = useState<number>(0);
 
@@ -56,7 +56,7 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
                         }`}
                         onClick={scrollToTop}
                     />
-                    {key_points.map((_, index) => (
+                    {matching_points.map((_, index) => (
                         <button
                             key={index}
                             className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${

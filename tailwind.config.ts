@@ -15,7 +15,7 @@ const config: Config = {
         accent: "var(--accent)",
       },
       boxShadow: {
-        'supalarge': '0 7px 50px 20px rgba(0, 0, 0, 0.15)',
+        'supalarge': '0 7px 50px 20px rgba(0, 0, 0, 0.17)',
       }
     },
   },
