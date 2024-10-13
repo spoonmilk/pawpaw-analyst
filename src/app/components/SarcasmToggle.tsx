@@ -1,3 +1,5 @@
+import ScoreTOS from "./ScoreTOS";
+
 export default function SarcasmToggle({ toggle, setToggle }: { toggle: boolean, setToggle: any }) {
   return (
     <label
@@ -17,6 +19,5 @@ export default function SarcasmToggle({ toggle, setToggle }: { toggle: boolean, 
         </h1>
       </span>
     </label>
-
   );
 }

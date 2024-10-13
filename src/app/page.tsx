@@ -8,7 +8,7 @@ import JumpButtons from "./components/JumpButtons";
 import { motion, useScroll, useSpring } from "framer-motion";
 import TitleHead from "./components/TitleHead";
 import SarcasmToggle from "./components/SarcasmToggle";
-import ScoreTOE from "./components/ScoreTOS";
+import ScoreTOS from "./components/ScoreTOS";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -94,10 +94,11 @@ export default function Home() {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
       };
-      const score: Score = await scoreTOSResponse.json() as Score;
+
+      const score_data: Score = await scoreTOSResponse.json() as Score;
   
       setData(data);
-      setScore(score);
+      setScore(score_data);
       setValue("");
       setLoading(false);
     } catch (error) {
@@ -138,8 +139,8 @@ export default function Home() {
           <JumpButtons key_points={data.key_points.points.positive_key_points} />
         </div> 
         : <></>}
-      <DisplayText data={data} />
-        <ScoreTOE score={score?.score} />
+        <DisplayText data={data} />
+        <ScoreTOS score={score?.score} />
     </main>
     </>
   )
