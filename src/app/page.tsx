@@ -15,6 +15,13 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [data, setData] = useState<Data | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const scaleX = useSpring(0);
+  const { scrollYProgress } = useScroll();
+  const scale = useSpring(scrollYProgress, {
+    stiffness: 400,
+    damping: 90,
+    restDelta: 0.001,
+  });
 
   useEffect(() => {
     if (error) {
@@ -87,9 +94,9 @@ export default function Home() {
 
   return (
     <>
-      <motion.div className="progress-bar" style={{ scaleX }}/>
+    <motion.div className="progress-bar" style={{ scaleX }}/>
       <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
-        <div className="flex items-center justify-center py-4">
+        {/*<div className="flex items-center justify-center py-4">
           <motion.div>
             <Image src={harold} alt="harold" className="h-60 w-auto"/>
           </motion.div>
@@ -101,7 +108,8 @@ export default function Home() {
               <span className="block"> how companies may be misusing your data. </span> 
             </p>
           </div>
-        </div>
+        </div> */}
+      <TitleHead />
 
       <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
         <Input value={value} setValue={setValue} />
@@ -129,7 +137,7 @@ export default function Home() {
         </div> 
         : <></>}
       <DisplayText data={data} />
-
     </main>
+    </>
   )
 }
