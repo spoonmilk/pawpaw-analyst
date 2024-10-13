@@ -5,7 +5,7 @@ export default function Input({ value, setValue }: { value: string, setValue: (v
 
 
     return (
-        <div className="flex flex-col w-full py-6 px-4">
+        <div className="flex flex-col w-full md:py-6 mx-1 md:px-4">
             <input 
                 type="url" 
                 value={value} 
