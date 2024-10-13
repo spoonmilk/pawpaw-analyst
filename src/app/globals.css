@@ -3,34 +3,126 @@
 @tailwind utilities;
 
 :root {
-  --primary: #18191A;
-  --secondary: #242526;
-  --tertiary: #3A3B3C;
-  --accent: #194759;
-  --foreground: #171717;
+  --primary: #FFFFFF; /* Pure white background */
+  --secondary: #F7F9FC; /* Light off-white for contrast */
+  --accent: #007BFF; /* Clean blue accent */
+  --text-color: #2D2D2D; /* Neutral dark gray for text */
+  --highlight-bg: #E6F0FF; /* Soft light blue for highlights */
 }
 
 html {
-  background-color: var(--secondary);
-  color: white;
+  background-color: var(--primary);
+  color: var(--text-color);
+  font-family: 'Helvetica Neue', 'Arial', sans-serif;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  @apply text-3xl font-semibold mb-4;
+  color: var(--text-color);
+}
+
+h2 {
+  @apply text-2xl font-medium mb-3;
+  color: var(--text-color);
+}
+
+h3 {
+  @apply text-xl font-normal mb-2;
+  color: var(--text-color);
+}
+
+p {
+  @apply text-base leading-relaxed mb-4 text-balance;
+  color: var(--text-color);
+}
+
+a {
+  color: var(--accent);
+  @apply underline hover:no-underline transition-colors duration-200;
+}
+
+button {
+  @apply text-white bg-accent px-4 py-2 rounded-md transition-all duration-300 focus:outline-none;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker shade of blue for hover */
+}
+
+::selection {
+  background-color: var(--highlight-bg);
+  color: var(--text-color);
 }
 
 @media screen and (max-width: 640px) {
   html {
     font-size: 16px;
   }
-}
 
-h1 {
-  @apply text-3xl
-}
+  h1 {
+    @apply text-2xl;
+  }
 
-p {
-  @apply text-base
+  h2 {
+    @apply text-xl;
+  }
+
+  h3 {
+    @apply text-lg;
+  }
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+
+  .bg-accent {
+    background-color: var(--accent);
+  }
+
+  .bg-primary {
+    background-color: var(--primary);
+  }
+
+  .bg-secondary {
+    background-color: var(--secondary);
+  }
+
+  .shadow-soft {
+    @apply shadow-md shadow-gray-200/30; /* Light gray shadow for a subtle effect */
+  }
+
+  .border-soft {
+    border-color: rgba(45, 45, 45, 0.1); /* Very light border for gentle separation */
+  }
+
+  .rounded-xl {
+    @apply rounded-lg;
+  }
+
+  .max-w-content {
+    @apply max-w-4xl mx-auto;
+  }
+
+  .text-accent {
+    color: var(--accent);
+  }
+}
+
+progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background-color: var(--accent);
+  transform-origin: 0%;
 }

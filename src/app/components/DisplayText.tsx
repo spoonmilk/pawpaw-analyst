@@ -1,5 +1,6 @@
 import { Data } from "@/app/lib/types/Types";
 import { motion } from "framer-motion";
+import HoverPopup from "./HoverPopup";
 
 export default function DisplayText({ data }: { data: Data | null }) {    
     const highlightWords = (text: string, quotes: string[]) => {
@@ -16,7 +17,16 @@ export default function DisplayText({ data }: { data: Data | null }) {
 
             let before = text.slice(0, index);
             parts.push(<span>{before}</span>);
-            parts.push(<span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span>);
+            parts.push(
+                <HoverPopup 
+                    classNames={{ wrapper: "", hover: "", parent: "" }}
+                    hoverElement={<span>Hello there</span>}
+                >
+                    <span id={`jump${num_quote}`} className="font-medium bg-yellow-200">{quote}</span>
+                </HoverPopup>
+            );
+            <span id={`jump${num_quote}`} className="font-large bg-yellow-200">{quote}</span> 
+
         });
         let lastIndex = text.indexOf(quotes[quotes.length - 1]);
         let last = text.slice(lastIndex + quotes[quotes.length - 1].length);
@@ -32,7 +42,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             transition={{ duration: 1 }}
-            className="mx-16 p-8 shadow-md bg-white rounded-lg text-black text-pretty w-[90%]">
+            className="mx-16 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-16 mt-3">
                 {highlightWords(data.original_text, data.key_points.points.negative_key_points.map(point => point.quotation))}
             </motion.div>
         )}

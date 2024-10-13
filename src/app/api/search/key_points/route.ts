@@ -3,11 +3,6 @@ import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 import get_text_from_url from "../helpers";
 
-const openai = new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-});
-
-
 // Define a Zod schema for the expected response: an array of strings
 const PointsSchema = z.object({
   positive_key_points: z.array(
@@ -39,6 +34,10 @@ const SummarySchema = z.object({
 
 export async function POST(req: Request) {
   try {
+    const openai = new OpenAI({
+      apiKey: process.env.OPENAI_API_KEY,
+    });
+
     const { url, sarcasm, ...rest } = await req.json();
 
     const textContent = await get_text_from_url(url);
@@ -48,7 +47,7 @@ export async function POST(req: Request) {
       model: "gpt-4o",
       messages: [
         { role: "system", content: "You are a legal assistant specialized in extrating key points from terms of service documents." },
-        { role: "user", content: `Extract positive key point quotations & explanations, negative key point quotations & explanations and suspicious point quotations & explanations from this text: \n\nTerms of Service: ${textContent}` }
+        { role: "user", content: `Extract positive key point quotations & explanations, negative key point quotations & explanations and suspicious point quotations & explanations${sarcasm ? ", (add sarcasm to the explanation)," : ""} from this text: \n\nTerms of Service: ${textContent}` }
       ],
       response_format: zodResponseFormat(PointsSchema, "key_points"),
     });

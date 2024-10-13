@@ -4,14 +4,22 @@ export default function LoadingIcon({ isLoading }: { isLoading: boolean }) {
   return (
     <>
       {isLoading && (
-        <div className="flex items-center justify-center mt-4">
+        <div className="flex items-center justify-center mt-4 space-x-2"> {/* Added space-x-2 for consistent spacing */}
           <motion.div
-            initial={{ rotate: 0 }}
-            animate={{ rotate: 360 }}
-            transition={{ duration: 1, repeat: Infinity }}
-            className="h-5 w-5 mr-3 rounded-full border-4 border-t-4 border-white border-t-transparent"
+            className="h-3 w-3 bg-blue-500 rounded-full"
+            animate={{ y: [0, -10, 0] }} // Bouncing effect
+            transition={{ duration: 0.5, repeat: Infinity }}
           />
-          <p className="text-white">Loading...</p>
+          <motion.div
+            className="h-3 w-3 bg-blue-500 rounded-full"
+            animate={{ y: [0, -10, 0] }} // Bouncing effect
+            transition={{ duration: 0.5, repeat: Infinity, delay: 0.1 }}
+          />
+          <motion.div
+            className="h-3 w-3 bg-blue-500 rounded-full"
+            animate={{ y: [0, -10, 0] }} // Bouncing effect
+            transition={{ duration: 0.5, repeat: Infinity, delay: 0.2 }}
+          />
         </div>
       )}
     </>
