@@ -2,19 +2,32 @@ import OpenAI from "openai";
 import { zodResponseFormat } from "openai/helpers/zod";
 import { z } from "zod";
 
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+});
+
+const SummarySchema = z.object({
+    summary: z.string(),
+  });
+
 export async function POST(req: Request) {
     try {
         const { news, ...res } = await req.json();
         
-        const key_points = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-mini",
+        const summary = await openai.beta.chat.completions.parse({
+            model: "gpt-4o",
             messages: [
               { role: "system", content: "You are a professional unbiased journalist who specialized in tech news." },
-              { role: "user", content: `Giveme  \n\nTerms of Service: ${textContent}` }
+              { role: "user", content: `Give me one summary of the following 10 news articles organized in a JSON object: ${news}` }
             ],
-            response_format: zodResponseFormat(PointsSchema, "key_points"),
+            response_format: zodResponseFormat(SummarySchema, "summary"),
           });
         
+        const summary_text = summary.choices[0].message.parsed?.summary || "";
+
+        return new Response(JSON.stringify({ summary: summary_text }), {
+            headers: { 'Content-Type': 'application/json' }
+        });
     } catch (err : any) {
         return new Response(JSON.stringify({ error: err.message, status: 400 }), {
             headers: { 'Content-Type': 'application/json' }

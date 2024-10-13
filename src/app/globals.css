@@ -11,7 +11,7 @@
 }
 
 html {
-  background-color: var(--primary);
+  background-color: rgb(243 244 246);
   color: var(--text-color);
   font-family: 'Helvetica Neue', 'Arial', sans-serif;
   line-height: 1.6;

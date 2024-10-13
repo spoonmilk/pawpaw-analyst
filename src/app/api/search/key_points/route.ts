@@ -44,17 +44,17 @@ export async function POST(req: Request) {
 
     // Prepare the OpenAI GPT request with Zod parsing
     const key_points = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [
         { role: "system", content: "You are a legal assistant specialized in extrating key points from terms of service documents." },
-        { role: "user", content: `Extract positive key point quotations & explanations, negative key point quotations & explanations and suspicious point quotations & explanations${sarcasm ? ", (add sarcasm to the explanation)," : ""} from this text: \n\nTerms of Service: ${textContent}` }
+        { role: "user", content: `Extract 10 positive key point quotations & explanations, 10 negative key point quotations & explanations and 10 suspicious point quotations & explanations${sarcasm ? ", (add sarcasm to the explanation)," : ""} from this text: \n\nTerms of Service: ${textContent}` }
       ],
       response_format: zodResponseFormat(PointsSchema, "key_points"),
     });
 
     //Create summary of terms of service
     const summary = await openai.beta.chat.completions.parse({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [
         { role: "system", content: "You are a legal assistant specialized in summarizing terms of service documents." },
         { role: "user", content: `Summarize the following terms of service into three key areas: data privacy, user rights, fees and additional info. For each area, provide a brief summary.\n\nTerms of Service: ${textContent}` }
