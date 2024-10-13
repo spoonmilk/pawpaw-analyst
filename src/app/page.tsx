@@ -46,7 +46,7 @@ export default function Home() {
       setData(null);
       setLoading(true);
   
-      const keyPointsPromise = fetch(`http://localhost:3000/api/search/key_points`, {
+      const keyPointsPromise = fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/key_points`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -58,7 +58,7 @@ export default function Home() {
         cache: "no-cache",
       });
 
-      const originalTextPromise = fetch(`http://localhost:3000/api/search/original_text`, {
+      const originalTextPromise = fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/original_text`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -69,7 +69,7 @@ export default function Home() {
         cache: "no-cache",
       });
 
-      const scoreTOSPromise = fetch(`http://localhost:3000/api/search/score`, {
+      const scoreTOSPromise = fetch(`${process.env.NEXT_PUBLIC_API_URL}/search/score`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

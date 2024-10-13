@@ -6,7 +6,7 @@ import harold from "../public/haroldface.svg";
 export default function TitleHead() {
   return (
     <div className="flex items-center justify-center gap-4">
-      <Image src={harold} alt="harold" className="h-60 w-auto" />
+      <Image src={harold} alt="harold" className="h-60 w-auto" priority />
       <div>
         <motion.div
           className="rounded-lg px-4 py-2 w-fit"
