@@ -15,7 +15,7 @@ export async function POST(req: Request) {
         const { news, ...res } = await req.json();
         
         const summary = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-mini",
+            model: "gpt-4o",
             messages: [
               { role: "system", content: "You are a professional unbiased journalist who specialized in tech news." },
               { role: "user", content: `Give me one summary of the following 10 news articles organized in a JSON object: ${news}` }

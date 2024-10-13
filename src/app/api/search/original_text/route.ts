@@ -20,7 +20,7 @@ export async function POST(req: Request) {
         const text = await get_text_from_url(url);
         
         const parsed_response = await openai.beta.chat.completions.parse({
-            model: "gpt-4o-mini",
+            model: "gpt-4o",
             messages: [
               { role: "system", content: "Without modifying the text." },
               { role: "user", content: `Parse the following text such that only the terms are extracted\n\n Text: ${text}` }
