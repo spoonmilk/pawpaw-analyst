@@ -6,7 +6,6 @@ export default function Input({ value, setValue }: { value: string, setValue: (v
 
     return (
         <div className="flex flex-col w-full py-6 px-4">
-            <label htmlFor="url" className="text-sm font-medium text-gray-800">Enter a URL</label>
             <input 
                 type="url" 
                 value={value} 
