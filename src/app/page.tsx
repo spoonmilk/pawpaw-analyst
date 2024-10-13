@@ -1,11 +1,8 @@
 'use client';
 
 import { DisplayText, Input, LoadingIcon } from "@/app/components";
-import Image from "next/image";
 import { useState } from "react";
-import { Data, KeyPoints, OriginalText } from "@/app/lib/types/Types";
-import { ScrollProgress } from "./components/ScrollProgress";
-import { motion } from "framer-motion";
+import { Data, KeyPoints } from "@/app/lib/types/Types";
 import JumpButtons from "./components/JumpButtons";
 
 export default function Home() {
@@ -41,18 +38,17 @@ export default function Home() {
       
       const [keyPointsResponse, originalTextResponse] = await Promise.all([keyPointsPromise, originalTextPromise]);
   
-      const keyPointsData: KeyPoints = await keyPointsResponse.json();
-      const originalTextData: OriginalText = await originalTextResponse.json();
+      const keyPointsData = await keyPointsResponse.json() as KeyPoints;
+      const originalTextData = await originalTextResponse.json() as { original_text: string };
   
       const data: Data = {
         key_points: keyPointsData,
-        original_text: originalTextData
+        original_text: originalTextData.original_text,
       };
   
       setData(data);
       setValue("");
       setLoading(false);
-      console.log(data);
     } catch (error) {
       setValue("");
       console.error(error);
@@ -74,10 +70,10 @@ export default function Home() {
 
       {data?.key_points ? 
         <div className="absolute top-0 right-0">
-          <JumpButtons key_points={data?.key_points.key_points} />
+          <JumpButtons key_points={data.key_points.points.positive_key_points} />
         </div> 
         : <></>}
-      <DisplayText data={data?.original_text} />
+      <DisplayText data={data} />
 
     </main>
   )

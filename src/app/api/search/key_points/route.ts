@@ -78,7 +78,7 @@ export async function POST(req: Request) {
 
     // Return the structured data as a JSON response
     return new Response(JSON.stringify(
-      { key_points: key_points_json, summary: summary_json}), {
+      { points: key_points_json, summary: summary_json}), {
       headers: { 'Content-Type': 'application/json' }
     });
   } catch (err : any) {

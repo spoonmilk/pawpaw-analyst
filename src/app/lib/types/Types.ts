@@ -3,26 +3,22 @@ type PointPair = {
     explanation : string;
 }
 
-type OriginalText = {
-    original_text: string;
-}
-
 type KeyPoints = {
-    key_points: {
+    points: { 
         positive_key_points : PointPair[],
         negative_key_points : PointPair[],
-        suspicious_key_points : PointPair[],
-    } | null;
+        suspicious_key_points : PointPair[], 
+    },
     summary: { 
         data_privacy_summary: string,
         user_rights_summary: string,
         fees_summary: string,
-    } | null;
+    };
 }
 
 type Data = {
-    key_points: KeyPoints;
-    original_text: OriginalText
+    key_points: KeyPoints,
+    original_text: string
 }
 
-export type { OriginalText, KeyPoints, Data }; 
+export type { KeyPoints, PointPair, Data }; 

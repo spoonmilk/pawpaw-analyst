@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { PointPair } from "@/app/lib/types/Types";
 
-export default function JumpButtons({ key_points }: { key_points: string[] }) {
+export default function JumpButtons({ key_points }: { key_points: PointPair[] }) {
     const [current, setCurrent] = useState<number>(0);
 
     return (
