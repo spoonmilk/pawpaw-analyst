@@ -7,6 +7,7 @@ import JumpButtons from "./components/JumpButtons";
 import Image from "next/image";
 import harold from "./public/haroldface.svg";
 import { motion, useScroll, useSpring } from "framer-motion";
+import TitleHead from "./components/TitleHead";
 
 export default function Home() {
   const [value, setValue] = useState<string>("")
@@ -94,7 +95,7 @@ export default function Home() {
     <>
       <motion.div className="progress-bar" style={{ scaleX }}/>
       <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
-        <div className="flex items-center justify-center py-4">
+        {/* <div className="flex items-center justify-center py-4">
           <motion.div>
             <Image src={harold} alt="harold" className="h-60 w-auto"/>
           </motion.div>
@@ -106,7 +107,9 @@ export default function Home() {
               <span className="block"> how companies may be misusing your data. </span> 
             </p>
           </div>
-        </div>
+        </div> */}
+
+        <TitleHead />
 
         <form className="w-[80%] max-w-[700px]" onSubmit={(e) => onSubmit(e)}>
           <Input value={value} setValue={setValue} />
