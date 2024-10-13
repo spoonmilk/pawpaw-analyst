@@ -1,4 +1,4 @@
-import { Data } from "@/app/lib/types";
+import { Data } from "@/app/lib/types/Types";
 import { motion } from "framer-motion";
 
 export default function DisplayText({ data }: { data: Data | null }) {    
@@ -21,12 +21,9 @@ export default function DisplayText({ data }: { data: Data | null }) {
         let lastIndex = text.indexOf(quotes[quotes.length - 1]);
         let last = text.slice(lastIndex + quotes[quotes.length - 1].length);
         parts.push(<span>{last}</span>);
-
-        console.log("QUOTES", quotes);
-        console.log("PARTS", parts);
+        
         return parts;
     };
-    
     
     return (
         <>
@@ -36,7 +33,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
             animate={{ opacity: 1, height: 'auto' }}
             transition={{ duration: 1 }}
             className="mx-16 p-8 shadow-md bg-white rounded-lg text-black text-pretty w-[90%]">
-                {highlightWords(data.original_text, data.key_points).map(elt => elt)}
+                {highlightWords(data.original_text, data.key_points.points.negative_key_points.map(point => point.quotation))}
             </motion.div>
         )}
         </>
