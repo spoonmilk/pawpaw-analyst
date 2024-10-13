@@ -98,7 +98,7 @@ export default function Home() {
       };
 
       const score_data: Score = await scoreTOSResponse.json() as Score;
-      console.log("scord_data:", score_data);
+      // console.log("scord_data:", score_data);
 
   
       setData(data);
@@ -126,10 +126,10 @@ export default function Home() {
   return (
     <>
     <motion.div className="progress-bar" style={{ scaleX }}/>
-      <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden"> 
+      <main className="flex flex-col justify-start items-center w-full md:px-8 overflow-x-hidden"> 
       <TitleHead />
-        <div className="flex w-full flex-row justify-center items-center">
-          <form className="w-[80%] py-8" onSubmit={(e) => onSubmit(e)}>
+        <div className="flex w-full flex-row justify-center items-start md:items-center gap-2">
+          <form className="w-full md:w-[80%] md:py-8" onSubmit={(e) => onSubmit(e)}>
             <Input value={value} setValue={setValue} />
             {error ?
               <motion.p
@@ -149,7 +149,7 @@ export default function Home() {
 
       <LoadingIcon isLoading={loading} />
 
-        {data && <div id="summaryBox">
+        {data && <div id="summaryBox" className="flex flex-col items-center">
           <DisplaySummary key_points={data.key_points} score={score?.score} />
         </div>}
 

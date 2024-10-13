@@ -6,7 +6,7 @@ export default function DisplaySummary({ key_points, score }: { key_points: KeyP
   if (!key_points) return null;
 
   const { summary } = key_points;
-  console.log(summary);
+  // console.log(summary);
 
   return (
     <>
@@ -15,7 +15,7 @@ export default function DisplaySummary({ key_points, score }: { key_points: KeyP
           initial={{ opacity: 0, height: 0 }}
           animate={{ opacity: 1, height: 'auto' }}
           transition={{ duration: 1 }}
-          className="mx-10 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-1"
+          className="my-12 md:my-0 md:mx-10 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-1"
         >
           <div className="space-y-4 flex flex-col items-center">
             <h3 className="text-xl font-semibold mb-2">Score</h3>
