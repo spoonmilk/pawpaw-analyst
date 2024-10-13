@@ -8,6 +8,7 @@ import JumpButtons from "./components/JumpButtons";
 import { motion, useScroll, useSpring } from "framer-motion";
 import getMatchingPoints from "./utils/getMatchingPoints";
 import TitleHead from "./components/TitleHead";
+import SarcasmToggle from "./components/SarcasmToggle";
 import ScoreTOS from "./components/ScoreTOS";
 
 export default function Home() {
@@ -94,10 +95,11 @@ export default function Home() {
         key_points: keyPointsData,
         original_text: originalTextData.original_text,
       };
-      const score: Score = await scoreTOSResponse.json() as Score;
+
+      const score_data: Score = await scoreTOSResponse.json() as Score;
   
       setData(data);
-      setScore(score);
+      setScore(score_data);
       setValue("");
       setLoading(false);
       // console.log("data", data);
@@ -144,8 +146,8 @@ export default function Home() {
           <MatchingJumpButtons data={data} />
         </div> 
         : <></>}
-      <DisplayText data={data} />
-      <ScoreTOS score={score?.score} />
+        <DisplayText data={data} />
+        <ScoreTOS score={score?.score} />
     </main>
     </>
   )
