@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { PointPair } from "@/app/lib/types/Types";
 
 export default function JumpButtons({ key_points }: { key_points: PointPair[] }) {
-    const [current, setCurrent] = useState<number>(0);
+    const [current, setCurrent] = useState<number>(-1); // Set initial state to -1 for the top button
     const [scrollProgress, setScrollProgress] = useState<number>(0);
 
     const handleScroll = (index: number) => {

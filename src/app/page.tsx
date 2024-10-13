@@ -58,11 +58,11 @@ export default function Home() {
   return (
     <main className="flex flex-col justify-start items-center w-full px-8 overflow-x-hidden">
       
-      <div className="flex items-center justify-center py-4">
-        <p>Pawpaw is the most best and awesome way of protecting your rights!</p>
+      <div className="flex items-center justify-center pt-8 pb-0">
+        <h1 className="text-4xl font-bold text-blue-600 tracking-tight">PAWPAW</h1>
       </div>
 
-      <form className="w-[80%] max-w-[700px] py-8" onSubmit={(e) => onSubmit(e)}>
+      <form className="w-[80%] max-w-[700px]" onSubmit={(e) => onSubmit(e)}>
         <Input value={value} setValue={setValue} />
       </form>
 
