@@ -117,7 +117,7 @@ export default function Home() {
 
       <LoadingIcon isLoading={loading} />
 
-      {data && <DisplaySummary key_points={data.key_points} />}
+      {data && <div id="summaryBox"><DisplaySummary key_points={data.key_points} /></div>}
 
       {data?.key_points ? 
         <div className="absolute top-0 right-0">

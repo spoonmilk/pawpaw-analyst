@@ -3,11 +3,11 @@ import { motion } from "framer-motion";
 import { PointPair } from "@/app/lib/types/Types";
 
 export default function JumpButtons({ key_points }: { key_points: PointPair[] }) {
-    const [current, setCurrent] = useState<number>(-1); // Set initial state to -1 for the top button
+    const [current, setCurrent] = useState<number>(-2); // Default to Summary button (-2)
     const [scrollProgress, setScrollProgress] = useState<number>(0);
 
     const handleScroll = (index: number) => {
-        setCurrent(index);
+        setCurrent(index); // Set the currently active button
         const element = document.getElementById(`jump${index}`);
         if (element) {
             element.scrollIntoView({
@@ -17,12 +17,16 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
         }
     };
 
-    const scrollToTop = () => {
-        setCurrent(-1); // Set the current state to -1 when scrolling to the top
-        window.scrollTo({
-            top: 0,
-            behavior: "smooth",
-        });
+    // Function to scroll to the Summary box
+    const scrollToSummary = () => {
+        const element = document.getElementById("summaryBox");
+        if (element) {
+            setCurrent(-2); // Use -2 as a flag for the Summary button
+            element.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }
     };
 
     useEffect(() => {
@@ -49,18 +53,22 @@ export default function JumpButtons({ key_points }: { key_points: PointPair[] })
             <div className="p-4">
                 {/* Circular Navigation Buttons */}
                 <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-3">
-                    {/* Button to Scroll to Top */}
+                    {/* Button to Scroll to Summary */}
                     <button
                         className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${
-                            current === -1 ? 'bg-blue-500 shadow-md scale-105' : 'bg-gray-300 hover:bg-gray-400'
+                            current === -2 
+                                ? 'bg-blue-500 shadow-md scale-105' // Blue when selected
+                                : 'bg-gray-300 hover:bg-gray-400'    // Grey hover when not selected
                         }`}
-                        onClick={scrollToTop}
+                        onClick={scrollToSummary}
                     />
                     {key_points.map((_, index) => (
                         <button
                             key={index}
                             className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${
-                                current === index ? 'bg-blue-500 shadow-md scale-105' : 'bg-gray-300 hover:bg-gray-400'
+                                current === index 
+                                    ? 'bg-blue-500 shadow-md scale-105' // Blue when selected
+                                    : 'bg-gray-300 hover:bg-gray-400'   // Grey hover when not selected
                             }`}
                             onClick={() => handleScroll(index)}
                         />
