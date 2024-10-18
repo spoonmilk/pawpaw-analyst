@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/react"
 
 const geistSans = localFont({
   src: "./lib/fonts/GeistVF.woff",
@@ -30,6 +31,7 @@ export default function RootLayout({
       >
         <main className="max-w-4xl mx-auto p-4"> {/* Centering the content with padding */}
           {children}
+          <Analytics />
         </main>
       </body>
     </html>
