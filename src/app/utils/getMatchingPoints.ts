@@ -3,6 +3,8 @@ import stringSimilarity from 'string-similarity';
 
 const getMatchingPoints = (data: Data, similarityThreshold: number = 0.6) => {
     const matchingPoints = [] as MatchingPoints[];
+    
+    if (data?.key_points?.points?.negative_key_points === undefined) return [];
 
     data.key_points.points.negative_key_points.forEach((point) => {
         // Find the best match for the quote in the original text using string similarity

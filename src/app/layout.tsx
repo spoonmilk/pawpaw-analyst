@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-800`} // Subtle background and text colors
+        className={`${geistSans.variable} ${geistMono.variable} antialiased text-gray-800 overflow-x-clip`} // Subtle background and text colors
       >
-        <main className="max-w-4xl mx-auto p-4"> {/* Centering the content with padding */}
+        <main className="max-w-4xl mx-auto p-4 sm:p-16 md:p-4"> {/* Centering the content with padding */}
           {children}
           <Analytics />
         </main>

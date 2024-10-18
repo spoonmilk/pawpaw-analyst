@@ -61,7 +61,7 @@ export default function DisplayText({ data }: { data: Data | null }) {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     transition={{ duration: 1 }}
-                    className="mx-16 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%] mb-16 mt-3"
+                    className="mx-0 mt-8 md:mx-16 mb-16 md:mt-3 p-8 shadow-md rounded-lg bg-white text-black text-pretty w-[90%]"
                 >
                     {highlightWords(data)}
                 </motion.div>

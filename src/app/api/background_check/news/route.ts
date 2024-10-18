@@ -1,9 +1,9 @@
 import Exa from "exa-js"
 
-const exa = new Exa(process.env.EXA_API_KEY);
-
 export async function POST(req: Request) {
     try {
+        const exa = new Exa(process.env.EXA_API_KEY);
+        
         const { url, ...res } = await req.json();
         const company_name = url.split("/")[2].split(".")[1];
 

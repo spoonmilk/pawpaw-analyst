@@ -52,7 +52,7 @@ export default function JumpButtons({ matching_points }: { matching_points: Matc
 
             <div className="p-4">
                 {/* Circular Navigation Buttons */}
-                <div className="fixed right-4 top-1/2 transform -translate-y-1/2 flex flex-col items-center space-y-3">
+                <div className="fixed right-0 md:right-4 top-1/2 transform -translate-x-1.5 md:-translate-x-8 -translate-y-1/2 flex flex-col items-center space-y-3">
                     {/* Button to Scroll to Summary */}
                     <button
                         className={`w-8 h-4 rounded-lg transition-all duration-300 focus:outline-none ${
